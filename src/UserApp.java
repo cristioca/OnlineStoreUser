@@ -14,12 +14,19 @@ public class UserApp {
 
         //test order
         user.newOrder();
-        user.addItem("Ice cream",5.32);
-        user.addItem("Pen",1.20);
+        user.addItemToCurrentOrder("Ice cream",5.32);
+        user.addItemToCurrentOrder("Pen",1.20);
         System.out.println(user);
         user.newOrder();
-        user.addItem("Doll",3.04);
+        user.addItemToCurrentOrder("Doll",3.04);
         System.out.println(user);
+        user.getOrders();
+
+        // test wishlist
+        user.addItemToWishlist("Tablet");
+        user.addItemToWishlist("Batteries");
+        user.addItemToWishlist("Monitor Dell");
+        user.getWishlist();
 
     }
 }

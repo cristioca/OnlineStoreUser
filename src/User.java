@@ -13,6 +13,7 @@ public class User {
         this.password = password;
         addresses = new String[1];
         orders = new Order[1];
+        wishlist = new Wishlist();
     }
 
     // getters
@@ -28,12 +29,19 @@ public class User {
         return addresses;
     }
 
-    public Order[] getOrders() {
-        return orders;
+    public void getOrders() {
+        for (Order order: orders) {
+
+            System.out.println("Order number: "+order.getId());
+            for(int i=0;i<order.itemList.length;i++){
+                System.out.println("Item: "+order.itemList[i]+" --- cost: "+order.priceList[i]+" lei");
+            }
+        }
+
     }
 
-    public Wishlist getWishlist() {
-        return wishlist;
+    public void getWishlist() {
+        System.out.println(wishlist.toString());
     }
 
     //setters
@@ -102,8 +110,12 @@ public class User {
         }
     }
 
-    public void addItem(String item, double price){
+    public void addItemToCurrentOrder(String item, double price){
         orders[orders.length-1].addItemToOrder(item,price);
+    }
+
+    public void addItemToWishlist(String item){
+        wishlist.addItemToWishlist(item);
     }
 
     private class Order {
@@ -167,5 +179,35 @@ public class User {
         }
 
 
+    }
+
+    private class Wishlist{
+        private String[] itemList;
+
+        @Override
+        public String toString() {
+            return "Wishlist{" +
+                    "itemList=" + Arrays.toString(itemList) +
+                    '}';
+        }
+
+        public Wishlist() {
+            itemList = new String[1];
+        }
+
+        public String[] getItemList() {
+            return itemList;
+        }
+
+        public void addItemToWishlist(String item){
+            if(itemList[0]!=null){
+                String[] tempList = new String[itemList.length+1];
+                System.arraycopy(itemList, 0, tempList, 0, itemList.length);
+                tempList[itemList.length]=item;
+                itemList = tempList;
+            } else { // daca lista e goala, pune item
+                itemList[0]=item;
+            }
+        }
     }
 }
